@@ -7,16 +7,31 @@ class Home extends React.Component {
     this.state = {
       name: '',
       email: '',
+      disabled: true,
     };
   }
 
   handleChange({ target: { name, value } }) {
     this.setState({
       [name]: value,
-    });
+    }, () => this.checkButton());
+  }
+
+  checkButton() {
+    const { email, name } = this.state;
+    if (email.length !== 0 && name.length !== 0) {
+      this.setState({
+        disabled: false,
+      });
+    } else {
+      this.setState({
+        disabled: true,
+      });
+    }
   }
 
   render() {
+    const { disabled } = this.state;
     return (
       <form>
         <label htmlFor="id-name">
@@ -25,6 +40,7 @@ class Home extends React.Component {
             id="id-name"
             name="name"
             onChange={ this.handleChange }
+            placeholder="Seu nome"
           />
         </label>
         <label htmlFor="id-email">
@@ -33,9 +49,14 @@ class Home extends React.Component {
             id="id-email"
             name="email"
             onChange={ this.handleChange }
+            placeholder="Email"
           />
         </label>
-        <button data-testid="btn-play">
+        <button
+          data-testid="btn-play"
+          disabled={ disabled }
+          type="button"
+        >
           Jogar
         </button>
       </form>
