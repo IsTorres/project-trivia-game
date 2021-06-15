@@ -21,3 +21,5 @@ const errorApi = (error) => ({
 export const requestToken = () => async (dispatch) => getFullAPI()
   .then((response) => dispatch(getToken(response)))
   .catch((error) => dispatch(errorApi(error)));
+
+export
