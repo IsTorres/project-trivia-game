@@ -1,13 +1,16 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom';
 
 class Home extends React.Component {
   constructor() {
     super();
+    this.handleSettings = this.handleSettings.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.state = {
       name: '',
       email: '',
       disabled: true,
+      settings: false,
     };
   }
 
@@ -30,7 +33,15 @@ class Home extends React.Component {
     }
   }
 
+  handleSettings() {
+    this.setState({ settings: true });
+  }
+
   render() {
+    const { settings } = this.state;
+    if (settings) {
+      return <Redirect to="/settings" />;
+    }
     const { disabled } = this.state;
     return (
       <form>
@@ -58,6 +69,13 @@ class Home extends React.Component {
           type="button"
         >
           Jogar
+        </button>
+        <button
+          type="button"
+          data-testid="btn-settings"
+          onClick={ this.handleSettings }
+        >
+          Configurações
         </button>
       </form>
     );
