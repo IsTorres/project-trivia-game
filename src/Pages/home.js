@@ -1,11 +1,16 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { requestToken } from '../Actions';
 
 class Home extends React.Component {
   constructor() {
     super();
     this.handleSettings = this.handleSettings.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.redirectPage = this.redirectPage.bind(this);
+
     this.state = {
       name: '',
       email: '',
@@ -67,6 +72,7 @@ class Home extends React.Component {
           data-testid="btn-play"
           disabled={ disabled }
           type="button"
+          onClick={ this.redirectPage }
         >
           Jogar
         </button>
@@ -82,4 +88,20 @@ class Home extends React.Component {
   }
 }
 
-export default Home;
+Home.defaultProps = {
+  token: () => {},
+  history: { '': '' },
+  push: () => {},
+};
+
+Home.propTypes = {
+  token: PropTypes.func,
+  history: PropTypes.shape(PropTypes.string),
+  push: PropTypes.func,
+}.isRequired;
+
+const mapDispatchToProps = (dispatch) => ({
+  token: () => dispatch(requestToken()),
+});
+
+export default connect(null, mapDispatchToProps)(Home);
