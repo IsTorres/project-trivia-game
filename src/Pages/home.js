@@ -19,6 +19,12 @@ class Home extends React.Component {
     };
   }
 
+  async redirectPage() {
+    const { token, history: { push } } = this.props;
+    await token();
+    return push('/play');
+  }
+
   handleChange({ target: { name, value } }) {
     this.setState({
       [name]: value,
