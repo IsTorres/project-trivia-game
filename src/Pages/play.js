@@ -20,14 +20,14 @@ class Play extends Component {
 
   componentDidUpdate() {
     const { token } = this.state;
-    if (token !== '') {
+    if (token !== undefined) {
       this.setLocalStorage();
     }
   }
 
   async setLocalStorage() {
     const { token } = this.state;
-    localStorage.setItem('tokenId', token);
+    localStorage.setItem('token', token);
   }
 
   async saveToken() {
