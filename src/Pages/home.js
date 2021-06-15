@@ -1,11 +1,14 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { requestToken } from '../Actions';
+import md5 from 'crypto-js/md5';
+import { requestToken, userAction } from '../Actions';
 
 class Home extends React.Component {
   constructor() {
     super();
+    this.handleSettings = this.handleSettings.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.redirectPage = this.redirectPage.bind(this);
 
@@ -13,7 +16,17 @@ class Home extends React.Component {
       name: '',
       email: '',
       disabled: true,
+      settings: false,
     };
+  }
+
+  async redirectPage() {
+    const { name, email } = this.state;
+    const { token, history: { push }, setUser } = this.props;
+    await token();
+    const hash = md5(email).toString();
+    setUser(name, email, hash);
+    return push('/play');
   }
 
   handleChange({ target: { name, value } }) {
@@ -35,13 +48,15 @@ class Home extends React.Component {
     }
   }
 
-  async redirectPage() {
-    const { token, history: { push } } = this.props;
-    await token();
-    return push('/play');
+  handleSettings() {
+    this.setState({ settings: true });
   }
 
   render() {
+    const { settings } = this.state;
+    if (settings) {
+      return <Redirect to="/settings" />;
+    }
     const { disabled } = this.state;
     return (
       <form>
@@ -71,6 +86,13 @@ class Home extends React.Component {
         >
           Jogar
         </button>
+        <button
+          type="button"
+          data-testid="btn-settings"
+          onClick={ this.handleSettings }
+        >
+          Configurações
+        </button>
       </form>
     );
   }
@@ -86,10 +108,11 @@ Home.propTypes = {
   token: PropTypes.func,
   history: PropTypes.shape(PropTypes.string),
   push: PropTypes.func,
-};
+}.isRequired;
 
 const mapDispatchToProps = (dispatch) => ({
   token: () => dispatch(requestToken()),
+  setUser: (name, email, hash) => dispatch(userAction(name, email, hash)),
 });
 
 export default connect(null, mapDispatchToProps)(Home);
