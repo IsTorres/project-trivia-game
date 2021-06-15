@@ -22,4 +22,13 @@ export const requestToken = () => async (dispatch) => getFullAPI()
   .then((response) => dispatch(getToken(response)))
   .catch((error) => dispatch(errorApi(error)));
 
-export
+export const userAction = (name, email, hash, rank) => ({
+  type: 'USER',
+  payload: {
+    name,
+    email,
+    hash,
+    rank,
+  },
+}
+);

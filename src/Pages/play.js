@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import Header from '../components/Header';
 
 class Play extends Component {
   constructor(props) {
@@ -40,7 +41,7 @@ class Play extends Component {
   render() {
     return (
       <div>
-        O jogo!
+        <Header />
       </div>
     );
   }
