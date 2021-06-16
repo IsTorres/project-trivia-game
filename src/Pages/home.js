@@ -3,7 +3,7 @@ import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import md5 from 'crypto-js/md5';
-import { requestToken, userAction } from '../Actions';
+import { requestToken, userAction, savetoken } from '../Actions';
 
 class Home extends React.Component {
   constructor() {
@@ -24,6 +24,7 @@ class Home extends React.Component {
     const { name, email } = this.state;
     const { token, history: { push }, setUser } = this.props;
     await token();
+    console.log('cheguei');
     const hash = md5(email).toString();
     setUser(name, email, hash);
     return push('/play');
@@ -112,6 +113,7 @@ Home.propTypes = {
 
 const mapDispatchToProps = (dispatch) => ({
   token: () => dispatch(requestToken()),
+  token2: () => dispatch(savetoken()),
   setUser: (name, email, hash) => dispatch(userAction(name, email, hash)),
 });
 
