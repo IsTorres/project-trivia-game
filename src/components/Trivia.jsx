@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 class Trivia extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       count: 0,
     };
@@ -22,9 +23,18 @@ class Trivia extends Component {
     this.setState({ count: contador + 1 });
   }
 
+  // correct_answer() {
+  //   const { questions } = this.props;
+  // }
+
+  // handleClick({ target: value }) {
+
+  // }
+
   render() {
     const { questions } = this.props;
     const { count } = this.state;
+    console.log(questions);
     if (questions) {
       const repostas = [
         questions[count].incorrect_answers];
