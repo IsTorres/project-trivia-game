@@ -5,7 +5,7 @@ const intialState = {
   hash: '',
   rank: 0,
 };
-// { type, payload: { name, email, hash } }
+
 const userReducer = (state = intialState, { type, payload }) => {
   switch (type) {
   case USER:
