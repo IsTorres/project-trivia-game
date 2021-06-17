@@ -4,13 +4,13 @@ import PropTypes from 'prop-types';
 
 class Header extends Component {
   render() {
-    const { hash, name, rank } = this.props;
+    const { hash, name, points } = this.props;
     return (
       <>
         <h4
           data-testid="header-score"
         >
-          {rank}
+          {points}
         </h4>
         <h3 data-testid="header-player-name">{name}</h3>
         <img
@@ -27,6 +27,7 @@ const mapStateToProps = (state) => ({
   name: state.userReducer.name,
   hash: state.userReducer.hash,
   rank: state.userReducer.rank,
+  points: state.pointsReducer.points,
 });
 Header.propTypes = {
   hash: PropTypes.string,

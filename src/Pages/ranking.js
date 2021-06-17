@@ -1,22 +1,22 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router';
+import { Redirect } from 'react-router-dom';
 
 export default class ranking extends Component {
   constructor() {
     super();
     this.state = {
-      again: false,
+      home: false,
     };
-    this.playAgain = this.playAgain.bind(this);
+    this.redirectHome = this.redirectHome.bind(this);
   }
 
-  playAgain() {
-    this.setState({ again: true });
+  redirectHome() {
+    this.setState({ home: true });
   }
 
   render() {
-    const { again } = this.state;
-    if (again) {
+    const { home } = this.state;
+    if (home) {
       return <Redirect to="/" />;
     }
     return (
@@ -24,10 +24,11 @@ export default class ranking extends Component {
         <h1 data-testid="ranking-title">Ranking</h1>
         <button
           type="button"
-          data-testid="btn-play-again"
-          onClick={ this.playAgain }
+          data-testid="btn-go-home"
+          onClick={ this.redirectHome }
         >
-          Jogar novamente
+          New-Game
+
         </button>
       </div>
     );

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { pointsAction } from '../Actions';
 
 const ONE_SECOND = 1000;
 class Trivia extends Component {
@@ -22,6 +23,13 @@ class Trivia extends Component {
     this.cronometer = setInterval(() => {
       this.setState((state) => ({ seconds: state.seconds - 1 }));
     }, ONE_SECOND);
+    const countScore = {
+      player: {
+        assertions: 0,
+        score: 0,
+      },
+    };
+    localStorage.setItem('state', JSON.stringify(countScore));
   }
 
   componentDidUpdate(_prevProps, prevState) {
@@ -63,7 +71,7 @@ class Trivia extends Component {
     });
   }
 
-  correctAnswer() {
+  correctAnswer(event) {
     const btnC = document.querySelectorAll('#correct');
     const btnE = document.querySelectorAll('#errada');
     const btnNext = document.querySelector('#next');
@@ -77,6 +85,38 @@ class Trivia extends Component {
       e.style.border = '3px solid rgb(255, 0, 0)';
       e.disabled = true;
     });
+    if (event !== undefined && event.target.id === 'correct') {
+      this.calcScore();
+    }
+  }
+
+  calcScore() {
+    const { name, email, setPoints, questions } = this.props;
+    const { count, seconds } = this.state;
+    const maxDifficulty = 3;
+    let difficulty = 0;
+    if (questions[count].difficulty === 'easy') {
+      difficulty = 1;
+    } else if (questions[count].difficulty === 'medium') {
+      difficulty = 2;
+    } else if (questions[count].difficulty === 'hard') {
+      difficulty = maxDifficulty;
+    }
+    const prevScore = localStorage.getItem('state');
+    const BASE_POINTS = 10;
+    const calc = prevScore ? JSON.parse(prevScore).player.score : 0;
+    const totalPoints = BASE_POINTS + (seconds * difficulty);
+
+    const countScore = {
+      player: {
+        name,
+        assertions: count + 1,
+        score: totalPoints + calc,
+        gravatarEmail: email,
+      },
+    };
+    localStorage.setItem('state', JSON.stringify(countScore));
+    setPoints(countScore);
   }
 
   render() {
@@ -122,7 +162,7 @@ class Trivia extends Component {
           >
             Next
           </button>
-          <h4>{seconds}</h4>
+          <h4 id="id-timer">{seconds}</h4>
         </>);
     }
     return (
@@ -135,7 +175,11 @@ Trivia.propTypes = {
 
 }.isRequired;
 
+const mapDispatchToProps = (dispatch) => ({
+  setPoints: (points) => dispatch(pointsAction(points)),
+});
+
 const mapStateToProps = (state) => ({
   questions: state.loginReducer.payload,
 });
-export default connect(mapStateToProps)(Trivia);
+export default connect(mapStateToProps, mapDispatchToProps)(Trivia);

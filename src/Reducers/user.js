@@ -14,7 +14,6 @@ const userReducer = (state = intialState, { type, payload }) => {
       email: payload.email,
       hash: payload.hash,
     };
-
   default:
     return state;
   }
