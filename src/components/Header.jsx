@@ -7,9 +7,10 @@ class Header extends Component {
     const { hash, name, rank } = this.props;
     return (
       <>
-        <h4 data-testid="header-score">
+        <h4
+          data-testid="header-score"
+        >
           {rank}
-
         </h4>
         <h3 data-testid="header-player-name">{name}</h3>
         <img
