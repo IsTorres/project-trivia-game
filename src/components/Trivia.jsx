@@ -11,6 +11,7 @@ class Trivia extends Component {
     this.state = {
       count: 0,
       seconds: 30,
+      redirect: false,
     };
     this.handleClick = this.handleClick.bind(this);
     this.correctAnswer = this.correctAnswer.bind(this);
@@ -43,9 +44,9 @@ class Trivia extends Component {
     const { count } = this.state;
     const THREE = 3;
     const contador = count;
-    // if (count >= THREE) {
-    //   contador = THREE;
-    // }
+    if (count > THREE) {
+      this.setState({ redirect: true });
+    }
     this.setState({ count: contador + 1, seconds: 30 });
     const btnC = document.querySelectorAll('#correct');
     const btnE = document.querySelectorAll('#errada');
@@ -80,8 +81,10 @@ class Trivia extends Component {
 
   render() {
     const { questions } = this.props;
-    const { count, seconds } = this.state;
-    if (count >= 5) return <Redirect to="/feedback" />;
+    const { count, seconds, redirect } = this.state;
+    if (redirect) {
+      return <Redirect to="/feedback" />;
+    }
     if (questions) {
       const repostas = [
         ...questions[count].incorrect_answers];
@@ -120,8 +123,7 @@ class Trivia extends Component {
             Next
           </button>
           <h4>{seconds}</h4>
-        </>
-      );
+        </>);
     }
     return (
       <div />
