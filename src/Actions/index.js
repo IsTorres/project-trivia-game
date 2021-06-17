@@ -36,3 +36,11 @@ export const userAction = (name, email, hash, rank) => ({
   },
 }
 );
+
+export const pointsAction = (points) => ({
+  type: 'POINTS',
+  payload: {
+    points,
+  },
+}
+);
