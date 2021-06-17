@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-const ONE_SECOND = 100;
+const ONE_SECOND = 1000;
 class Trivia extends Component {
   constructor(props) {
     super(props);
