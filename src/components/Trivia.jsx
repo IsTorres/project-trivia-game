@@ -59,7 +59,9 @@ class Trivia extends Component {
     const btnC = document.querySelectorAll('#correct');
     const btnE = document.querySelectorAll('#errada');
     const btnNext = document.querySelector('#next');
+    const timer = document.querySelector('#id-timer');
 
+    timer.style.display = 'inline-block';
     btnNext.style.display = 'none';
     btnC.forEach((e) => {
       e.style.border = '1px solid';
@@ -75,8 +77,10 @@ class Trivia extends Component {
     const btnC = document.querySelectorAll('#correct');
     const btnE = document.querySelectorAll('#errada');
     const btnNext = document.querySelector('#next');
+    const timer = document.querySelector('#id-timer');
     btnNext.style.display = 'inline-block';
 
+    timer.style.display = 'none';
     btnC.forEach((e) => {
       e.style.border = '3px solid rgb(6, 240, 15)';
       e.disabled = true;
