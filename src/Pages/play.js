@@ -44,7 +44,6 @@ class Play extends Component {
       <div>
         <Header />
         <Trivia />
-        <test />
       </div>
     );
   }
