@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import md5 from 'crypto-js/md5';
 import { requestToken, userAction, savetoken } from '../Actions';
-import Clock from '../components/Clock';
 
 class Home extends React.Component {
   constructor() {
