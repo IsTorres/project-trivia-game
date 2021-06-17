@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 const ONE_SECOND = 1000;
@@ -41,10 +42,10 @@ class Trivia extends Component {
   handleClick() {
     const { count } = this.state;
     const THREE = 3;
-    let contador = count;
-    if (count >= THREE) {
-      contador = THREE;
-    }
+    const contador = count;
+    // if (count >= THREE) {
+    //   contador = THREE;
+    // }
     this.setState({ count: contador + 1, seconds: 30 });
     const btnC = document.querySelectorAll('#correct');
     const btnE = document.querySelectorAll('#errada');
@@ -80,6 +81,7 @@ class Trivia extends Component {
   render() {
     const { questions } = this.props;
     const { count, seconds } = this.state;
+    if (count >= 5) return <Redirect to="/feedback" />;
     if (questions) {
       const repostas = [
         ...questions[count].incorrect_answers];
@@ -95,7 +97,6 @@ class Trivia extends Component {
               onClick={ this.correctAnswer }
             >
               {questions[count].correct_answer}
-
             </button>
             {repostas.map((element, index) => (
               <button
@@ -117,7 +118,6 @@ class Trivia extends Component {
             onClick={ this.handleClick }
           >
             Next
-
           </button>
           <h4>{seconds}</h4>
         </>
