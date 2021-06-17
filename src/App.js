@@ -4,6 +4,7 @@ import './App.css';
 import Play from './Pages/play';
 import Home from './Pages/home';
 import settings from './Pages/settings';
+import Feedback from './Pages/feedback';
 
 export default function App() {
   return (
@@ -11,6 +12,7 @@ export default function App() {
       <Route exact path="/" component={ Home } />
       <Route path="/settings" component={ settings } />
       <Route path="/play" component={ Play } />
+      <Route path="/feedback" component={ Feedback } />
     </Switch>
   );
 }

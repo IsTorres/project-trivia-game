@@ -23,7 +23,9 @@ class Trivia extends Component {
     this.setState({ count: contador + 1 });
     const btnC = document.querySelectorAll('#correct');
     const btnE = document.querySelectorAll('#errada');
+    const btnNext = document.querySelector('#next');
 
+    btnNext.style.display = 'none';
     btnC.forEach((e) => {
       e.style.border = '1px solid';
       e.disabled = false;
@@ -37,6 +39,8 @@ class Trivia extends Component {
   correctAnswer() {
     const btnC = document.querySelectorAll('#correct');
     const btnE = document.querySelectorAll('#errada');
+    const btnNext = document.querySelector('#next');
+    btnNext.style.display = 'inline-block';
 
     btnC.forEach((e) => {
       e.style.border = '3px solid rgb(6, 240, 15)';
@@ -80,7 +84,16 @@ class Trivia extends Component {
               </button>))}
           </ul>
           <br />
-          <button type="button" onClick={ this.handleClick }>Next</button>
+          <button
+            id="next"
+            style={ { display: 'none' } }
+            data-testid="btn-next"
+            type="button"
+            onClick={ this.handleClick }
+          >
+            Next
+
+          </button>
         </>
       );
     }
