@@ -44,7 +44,7 @@ class Trivia extends Component {
     const { count } = this.state;
     const THREE = 3;
     const contador = count;
-    if (count >= THREE) {
+    if (count > THREE) {
       this.setState({ redirect: true });
     }
     this.setState({ count: contador + 1, seconds: 30 });
