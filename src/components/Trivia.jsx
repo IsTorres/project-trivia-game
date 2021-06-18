@@ -186,4 +186,5 @@ const mapDispatchToProps = (dispatch) => ({
 const mapStateToProps = (state) => ({
   questions: state.loginReducer.payload,
 });
+
 export default connect(mapStateToProps, mapDispatchToProps)(Trivia);
